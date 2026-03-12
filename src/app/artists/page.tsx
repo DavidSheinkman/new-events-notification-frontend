@@ -2,11 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import styles from "./loading.module.css";
 
 export default function ArtistsPage() {
   const router = useRouter();
   const [artists, setArtists] = useState<string[]>([]);
   const [artist, setArtist] = useState("");
+  const [loadingList, setLoadingList] = useState(true);
 
   const email =
     typeof window !== "undefined"
@@ -22,10 +24,12 @@ export default function ArtistsPage() {
   }, []);
 
   async function loadArtists() {
+    setLoadingList(true);
     const res = await fetch("/api/artists", {
       headers: { email: email! },
     });
     setArtists(await res.json());
+    setLoadingList(false);
   }
 
   async function addArtist() {
@@ -58,14 +62,23 @@ export default function ArtistsPage() {
       />
       <button onClick={addArtist}>Add</button>
 
-      <ul>
-        {artists.map(a => (
-          <li key={a}>
-            {a}
-            <button onClick={() => deleteArtist(a)}>❌</button>
-          </li>
-        ))}
-      </ul>
+      {loadingList ? (
+        <ul className={styles.skeletonList}>
+          <li className={styles.skeletonItem} />
+          <li className={styles.skeletonItem} />
+          <li className={styles.skeletonItem} />
+          <li className={styles.skeletonItem} />
+        </ul>
+      ) : (
+        <ul>
+          {artists.map(a => (
+            <li key={a}>
+              {a}
+              <button onClick={() => deleteArtist(a)}>❌</button>
+            </li>
+          ))}
+        </ul>
+      )}
     </main>
   );
 }

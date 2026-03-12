@@ -2,13 +2,17 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import styles from "./loading.module.css";
 
 export default function Home() {
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   async function submit() {
     if (!email) return;
+
+    setLoading(true);
 
     await fetch("/api/users", {
       method: "POST",
@@ -28,9 +32,19 @@ export default function Home() {
         placeholder="email"
         value={email}
         onChange={e => setEmail(e.target.value)}
+        disabled={loading}
       />
 
-      <button onClick={submit}>Continue</button>
+      <button onClick={submit} disabled={loading}>
+        Continue
+      </button>
+
+      {loading && (
+        <div className={styles.spinnerOverlay}>
+          <div className={styles.spinner} />
+          <span className={styles.spinnerLabel}>Signing you in…</span>
+        </div>
+      )}
     </main>
   );
 }
