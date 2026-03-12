@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import styles from "./loading.module.css";
+import styles from "./artists.module.css";
+
 
 export default function ArtistsPage() {
   const router = useRouter();
@@ -52,33 +53,64 @@ export default function ArtistsPage() {
   }
 
   return (
-    <main style={{ padding: 40 }}>
-      <h1>Your artists</h1>
+    <div className={styles.page}>
+      <header className={styles.topBar}>
+        <span className={styles.logo}>RA</span>
+        {email && <span className={styles.userEmail}>{email}</span>}
+      </header>
 
-      <input
-        value={artist}
-        onChange={e => setArtist(e.target.value)}
-        placeholder="Artist name"
-      />
-      <button onClick={addArtist}>Add</button>
+      <main className={styles.main}>
+        <h1 className={styles.pageTitle}>Your artists</h1>
+        <p className={styles.artistCount}>
+          {loadingList ? "Loading…" : `${artists.length} artist${artists.length !== 1 ? "s" : ""} tracked`}
+        </p>
 
-      {loadingList ? (
-        <ul className={styles.skeletonList}>
-          <li className={styles.skeletonItem} />
-          <li className={styles.skeletonItem} />
-          <li className={styles.skeletonItem} />
-          <li className={styles.skeletonItem} />
-        </ul>
-      ) : (
-        <ul>
-          {artists.map(a => (
-            <li key={a}>
-              {a}
-              <button onClick={() => deleteArtist(a)}>❌</button>
-            </li>
-          ))}
-        </ul>
-      )}
-    </main>
+        {/* Add row */}
+        <div className={styles.addRow}>
+          <input
+            className={styles.addInput}
+            value={artist}
+            onChange={e => setArtist(e.target.value)}
+            placeholder="Artist name"
+            onKeyDown={e => e.key === "Enter" && addArtist()}
+          />
+          <button className={styles.addButton} onClick={addArtist}>
+            Add
+          </button>
+        </div>
+
+        {/* List */}
+        <p className={styles.sectionLabel}>Following</p>
+
+        {loadingList ? (
+          <ul className={styles.skeletonList}>
+            {[0, 1, 2, 3].map(i => (
+              <li key={i} className={styles.skeletonItem}>
+                <div className={styles.skeletonBar} />
+              </li>
+            ))}
+          </ul>
+        ) : artists.length === 0 ? (
+          <p className={styles.empty}>No artists yet — add one above</p>
+        ) : (
+          <ul className={styles.list}>
+            {artists.map(a => (
+              <li key={a} className={styles.listItem}>
+                <span className={styles.artistName}>{a}</span>
+                <button className={styles.deleteBtn} onClick={() => deleteArtist(a)}>
+                  Remove
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </main>
+
+      <footer className={styles.footer}>
+        <span>Privacy Policy</span>
+        <span>Terms of Use</span>
+        <span>© RA {new Date().getFullYear()}</span>
+      </footer>
+    </div>
   );
 }

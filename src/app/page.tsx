@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import styles from "./loading.module.css";
+import styles from "./page.module.css";
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -25,26 +25,52 @@ export default function Home() {
   }
 
   return (
-    <main style={{ padding: 40 }}>
-      <h1>Login</h1>
+    <div className={styles.page}>
+      <header className={styles.topBar}>
+        <span className={styles.logo}>RA</span>
+        <span className={styles.topBarRight}>Electronic Music &amp; Culture</span>
+      </header>
 
-      <input
-        placeholder="email"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        disabled={loading}
-      />
+      <main className={styles.center}>
+        <div className={styles.card}>
+          <div className={styles.cardHeader}>
+            <p className={styles.eyebrow}>Welcome back</p>
+            <h1 className={styles.heading}>Sign in</h1>
+          </div>
 
-      <button onClick={submit} disabled={loading}>
-        Continue
-      </button>
+          <div className={styles.cardBody}>
+            <p className={styles.fieldLabel}>Email address</p>
+            <input
+              className={styles.input}
+              placeholder="your@email.com"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              disabled={loading}
+              type="email"
+            />
+            <button
+              className={styles.button}
+              onClick={submit}
+              disabled={loading}
+            >
+              Continue
+            </button>
+          </div>
 
-      {loading && (
-        <div className={styles.spinnerOverlay}>
-          <div className={styles.spinner} />
-          <span className={styles.spinnerLabel}>Signing you in…</span>
+          {loading && (
+            <div className={styles.spinnerOverlay}>
+              <div className={styles.spinner} />
+              <span className={styles.spinnerLabel}>Signing you in…</span>
+            </div>
+          )}
         </div>
-      )}
-    </main>
+      </main>
+
+      <footer className={styles.footer}>
+        <span>Privacy Policy</span>
+        <span>Terms of Use</span>
+        <span>© RA {new Date().getFullYear()}</span>
+      </footer>
+    </div>
   );
 }
