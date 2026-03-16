@@ -8,7 +8,7 @@ A minimal Next.js web app that lets users sign in with their email and manage th
 
 ### Sign In `/`
 
-![Sign In Page](./screenshots/signin.png)
+![Sign In Page](https://i.imgur.com/0EUsZYF.png)
 
 Users enter their email address to sign in. If the email doesn't exist in the database, a new account is created automatically. The email is then stored in `localStorage` and the user is redirected to the artists page.
 
@@ -16,7 +16,7 @@ Users enter their email address to sign in. If the email doesn't exist in the da
 
 ### Artists `/artists`
 
-![Artists Page](./screenshots/artists.png)
+![Artists Page](https://i.imgur.com/qFhSykr.png)
 
 Users can view, add, and remove artists they want to follow. The list is fetched from MongoDB and updates instantly on every change.
 
