@@ -24,7 +24,7 @@ Users can view, add, and remove artists they want to follow. The list is fetched
 
 ## Live Demo
 
-🔗 [Deployed Link](#) ← _replace with your URL_
+🔗 [Deployed Link](https://new-events-notification-frontend.vercel.app/) 
 
 ---
 
