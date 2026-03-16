@@ -1,38 +1,117 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# RA Artist Event Notifier — Frontend
 
-## Getting Started
+A minimal Next.js web app that lets users sign in with their email and manage the artists they want to track for Berlin events.
 
+---
 
+## Pages
 
-First, run the development server:
+### Sign In `/`
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+![Sign In Page](./screenshots/signin.png)
+
+Users enter their email address to sign in. If the email doesn't exist in the database, a new account is created automatically. The email is then stored in `localStorage` and the user is redirected to the artists page.
+
+---
+
+### Artists `/artists`
+
+![Artists Page](./screenshots/artists.png)
+
+Users can view, add, and remove artists they want to follow. The list is fetched from MongoDB and updates instantly on every change.
+
+---
+
+## Live Demo
+
+🔗 [Deployed Link](#) ← _replace with your URL_
+
+---
+
+## Tech Stack
+
+- **Next.js 14** (App Router)
+- **TypeScript**
+- **CSS Modules** — dark theme, `Bebas Neue` + `IBM Plex Mono`
+- **MongoDB** via native driver
+
+---
+
+## Project Structure
+
+```
+app/
+├── page.tsx                  # Sign-in page
+├── page.module.css
+├── artists/
+│   ├── page.tsx              # Artist management page
+│   └── artists.module.css
+└── api/
+    ├── users/
+    │   └── route.ts          # POST /api/users — create user
+    └── artists/
+        └── route.ts          # GET / POST / DELETE /api/artists
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## API Routes
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### `POST /api/users`
+Creates a new user if the email doesn't already exist.
 
-## Learn More
+**Body:** `{ email: string }`
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### `GET /api/artists`
+Returns the list of artists the user follows.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Header:** `email: string`
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### `POST /api/artists`
+Adds an artist to the user's list. Also creates an entry in the global `artists` collection if it doesn't exist yet.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Body:** `{ email: string, artist: string }`
+
+---
+
+### `DELETE /api/artists`
+Removes an artist from the user's list.
+
+**Body:** `{ email: string, artist: string }`
+
+---
+
+## Local Setup
+
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+2. Create a `.env.local` file:
+   ```env
+   MONGODB_URI=your_mongodb_connection_string
+   ```
+
+3. Run the dev server:
+   ```bash
+   npm run dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000)
+
+---
+
+## Design
+
+| Token | Value |
+|---|---|
+| Background | `#0a0a0a` |
+| Text | `#f0ede8` |
+| Accent | `#e8ff00` |
+| Display font | Bebas Neue |
+| Body font | IBM Plex Mono |
