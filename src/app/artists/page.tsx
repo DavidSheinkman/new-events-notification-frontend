@@ -79,6 +79,13 @@ export default function ArtistsPage() {
           </button>
         </div>
 
+        <p className={styles.inputHint}>
+          Enter the name exactly as it appears on{" "}
+          <a className={styles.inputHintLink} href="https://ra.co" target="_blank" rel="noopener noreferrer">
+            ra.co
+          </a>
+        </p>
+
         {/* List */}
         <p className={styles.sectionLabel}>Following</p>
 

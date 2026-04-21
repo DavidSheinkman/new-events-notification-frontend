@@ -110,6 +110,22 @@
   background: var(--accent);
 }
 
+/* ── Input hint ── */
+.inputHint {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--grey-text);
+  margin: -28px 0 36px;
+}
+
+.inputHintLink {
+  color: var(--grey-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.15s;
+}
+
 /* ── Section label ── */
 .sectionLabel {
   font-size: 10px;
@@ -196,10 +212,24 @@
   animation: shimmer 1.4s ease-in-out infinite;
 }
 
-.skeletonItem:nth-child(1) .skeletonBar { width: 45%; }
-.skeletonItem:nth-child(2) .skeletonBar { width: 62%; animation-delay: 0.1s; }
-.skeletonItem:nth-child(3) .skeletonBar { width: 38%; animation-delay: 0.2s; }
-.skeletonItem:nth-child(4) .skeletonBar { width: 55%; animation-delay: 0.3s; }
+.skeletonItem:nth-child(1) .skeletonBar {
+  width: 45%;
+}
+
+.skeletonItem:nth-child(2) .skeletonBar {
+  width: 62%;
+  animation-delay: 0.1s;
+}
+
+.skeletonItem:nth-child(3) .skeletonBar {
+  width: 38%;
+  animation-delay: 0.2s;
+}
+
+.skeletonItem:nth-child(4) .skeletonBar {
+  width: 55%;
+  animation-delay: 0.3s;
+}
 
 /* ── Footer ── */
 .footer {
@@ -214,20 +244,39 @@
 
 /* ── Keyframes ── */
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes shimmer {
-  0%   { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(14px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
