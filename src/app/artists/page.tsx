@@ -100,8 +100,8 @@ export default function ArtistsPage() {
         ) : artists.length === 0 ? (
           <p className={styles.empty}>No artists yet — add one above</p>
         ) : (
-          <ul className={styles.list}>
-            {artists.map(a => (
+           <ul className={styles.list}>
+            {[...artists].sort((a, b) => a.localeCompare(b)).map(a => (
               <li key={a} className={styles.listItem}>
                 <span className={styles.artistName}>{a}</span>
                 <button className={styles.deleteBtn} onClick={() => deleteArtist(a)}>
